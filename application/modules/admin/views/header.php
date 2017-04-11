@@ -4,7 +4,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Bootstrap Admin Template</title>
+<title>SIS</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="<?php echo base_url().'templates/admin/'; ?>css/bootstrap.min.css" rel="stylesheet">

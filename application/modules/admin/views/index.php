@@ -3,6 +3,7 @@
 $mod['name'] = $this->router->fetch_class();
 $mod['task'] = $this->router->fetch_method();
 
-$content = $mod['name'].'/'.$mod['task'];
+$content = ($mod['name'] == 'admin') ? 'admin/content' : $mod['name'].'/'.$mod['task'];
+$data['content'] = $content;
 
-include 'home.php';
+$this->load->view('admin/home',$data);

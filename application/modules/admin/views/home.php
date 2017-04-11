@@ -20,7 +20,9 @@
 				<div class="container-fluid">
 					<?php $this->load->view('admin/heading'); ?>
 					<?php
-						$this->load->view($content);
+						$data['msg'] = @$msg;
+						$data['alert'] = @$alert;
+						$this->load->view($content, $data);
 					?>
 				</div>
 			</div>
