@@ -8,7 +8,7 @@ class User extends CI_Controller
     $this->load->helper('url');
     $this->load->helper('html');
     $this->load->model('user_model');
-    $this->load->model('crud_model');
+    // $this->load->model('crud_model');
     $this->load->library('pagination');
   }
 	public function index()

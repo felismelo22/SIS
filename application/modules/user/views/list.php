@@ -43,16 +43,9 @@
 					<?php
 					 echo $pagination;
 					 ?>
-<!-- 					<ul class="pagination" style="margin-top: 0;margin-bottom: 0;">
-				    <li><a href="#">1</a></li>
-				    <li class="active"><a href="#">2</a></li>
-				    <li><a href="#">3</a></li>
-				    <li><a href="#">4</a></li>
-				    <li><a href="#">5</a></li>
-				  </ul> -->
 				</td>
 				<td>
-					<button type="button" class="btn btn-danger">
+					<button type="button" class="btn btn-danger btn-sm">
 						<span class="glyphicon glyphicon-trash"></span> DELETE
 					</button>
 				</td>
