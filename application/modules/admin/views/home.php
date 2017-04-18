@@ -20,6 +20,9 @@
 				<div class="container-fluid">
 					<?php $this->load->view('admin/heading'); ?>
 					<?php
+						// $this->session->unset_userdata('link_js');
+						// pr($this->session->user);
+						pr(@($this->session));
 						$data['msg'] = @$msg;
 						$data['alert'] = @$alert;
 						$this->load->view($content, $data);

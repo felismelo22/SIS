@@ -34,7 +34,7 @@ class User_model extends CI_Model
 		*/
 	}
 
-	public function set_user()
+	public function set_user($id = 0)
 	{
 		$this->load->helper('url');
 
@@ -42,7 +42,27 @@ class User_model extends CI_Model
 			'username' => $this->input->post('username'),
 			'password' => md5($this->input->post('password'))
 		);
+		if($id > 0)
+		{
+			return $this->db->update('user', $data, 'id = '.$id);
+		}else{
+			return $this->db->insert('user', $data);
+		}
+	}
 
-		return $this->db->insert('user', $data);
+	public function login($username = NULL, $password = NULL)
+	{
+		$query = $this->db->get_where('user', array('username' => $username, 'password'=>md5($password)));
+		return $query->row_array();
+	}
+	public function is_exist($username = NULL, $id = 0)
+	{
+		if($id == NULL)
+		{
+			$query = $this->db->get_where('user', array('username' => $username));
+		}else{
+			$query = $this->db->get_where('user', array('username' => $username, 'id'=>$id));
+		}
+		return $query->row_array();
 	}
 }

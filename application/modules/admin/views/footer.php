@@ -1,16 +1,16 @@
-<!-- jQuery -->
-
 <script src="<?php echo base_url().'templates/admin/'; ?>js/jquery.js"></script>
-
-
-<!-- Bootstrap Core JavaScript -->
 <script src="<?php echo base_url().'templates/admin/'; ?>js/bootstrap.min.js"></script>
-
-<!-- extra JavaScript -->
 <script type="text/javascript">
-	var _url = '<?php echo base_url(uri_string()) ?>';
+	var _url = '<?php echo base_url() ?>';
 </script>
 <script src="<?php echo base_url().'templates/admin/'; ?>js/script.js"></script>
+<?php
+$link_js = @$this->session->userdata('link_js');
+if(!empty($link_js))
+{
+	echo '<script src="'.$link_js.'"></script>';
+}
+?>
 
 <!-- Morris Charts JavaScript -->
 <script src="<?php echo base_url().'templates/admin/'; ?>js/plugins/morris/raphael.min.js"></script>

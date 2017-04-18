@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     parent::__construct();
     $this->load->helper('url');
     $this->load->helper('html');
+		$this->load->library('session');
   }
 	public function index()
 	{
