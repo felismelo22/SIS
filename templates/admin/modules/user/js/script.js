@@ -72,25 +72,14 @@ $(document).ready(function(){
 
 		  },
 		  success: function(i){
-		  	console.log(b);
-		  	if(b>0){
-		  		if(i.success==1){
-			  		$('#user_error').html('<div class="alert alert-danger"><strong>danger !</strong> username sudah ada.</div>');
-			  		$('#user_edit').on('submit',function(e){
-			  			e.preventDefault();
-			  		});
-			  	}else{
-			  		$('#user_error').html('');
-			  	}
+	  		if(i.success==1){
+		  		$('#user_error').html('<div class="alert alert-danger"><strong>danger !</strong> username sudah ada.</div>');
+		  		$('#user_edit').on('submit',function(e){
+		  			e.preventDefault();
+		  		});
 		  	}else{
-			  	if(i.success==1){
-			  		$('#user_error').html('<div class="alert alert-danger"><strong>danger !</strong> username sudah ada.</div>');
-			  		$('#user_edit').on('submit',function(e){
-			  			e.preventDefault();
-			  		});
-			  	}else{
-			  		$('#user_error').html('');
-			  	}
+		  		$('#user_error').html('');
+		  		$('#user_edit').unbind('submit');
 		  	}
 		  },
 		});

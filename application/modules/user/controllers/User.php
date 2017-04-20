@@ -16,35 +16,9 @@ class User extends CI_Controller
 	{
 		$this->load->view('admin/index');
 	}
-	public function list($page = 0)
+	public function list($page = 0, $keyword = NULL)
 	{
-    $total_rows = $this->db->count_all('user');
-    // pr($this->db->last_query());die();
-
-    $data['data_user']  = $this->user_model->get_all_user($page);
-
-    $config['base_url']   = base_url('user/list');
-    $config['total_rows'] = $total_rows;
-    $config['per_page']   = 2;
-    $config['full_tag_open'] = '<ul class="pagination" style="margin-top: 0;margin-bottom: 0;">';
-    $config['num_tag_open'] = '<li>';
-    $config['num_tag_close'] = '</li>';
-    $config['first_tag_open'] = '<li>';
-    $config['first_tag_close'] = '</li>';
-    $config['last_tag_open'] = '<li>';
-    $config['last_tag_close'] = '</li>';
-    $config['cur_tag_open'] = '<li class="active"><a href="#">';
-    $config['cur_tag_close'] = '</a></li>';
-    $config['next_tag_open'] = '<li>';
-    $config['next_tag_close'] = '</li>';
-    $config['prev_tag_open'] = '<li>';
-    $config['prev_tag_close'] = '</li>';
-    $config['full_tag_close'] = '</ul>';
-    $this->pagination->initialize($config);
-
-
-    $data['pagination'] = $this->pagination->create_links();
-
+    $data  = $this->user_model->get_all_user($page, $keyword);
 		$this->load->view('admin/index',$data);
 	}
 	public function list_edit($id = 0)
@@ -104,14 +78,14 @@ class User extends CI_Controller
     if($id > 0)
     {
       $id = @$_GET['id'];
-      $is_exist = $this->user_model->is_exist($username,$id);
-      if(!empty($is_exist))
-      {
-        $is_exist['success'] = 1;
-      }else{
-        $is_exist = array('success'=>0, 'msg'=>'user
-          name '.$username.' tidak ditemukan');
-      }
+    }
+    $is_exist = $this->user_model->is_exist($username,$id);
+    if(!empty($is_exist))
+    {
+      $is_exist['success'] = 1;
+    }else{
+      $is_exist = array('success'=>0, 'msg'=>'user
+        name '.$username.' tidak ditemukan');
     }
     $this->output
       ->set_content_type('application/json')

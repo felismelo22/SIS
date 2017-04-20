@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<form method="post" action="" class="form-inline pull-right">
-	<input type="text" name="search" class="form-control" placeholder="keyword">
-	<button type="submit" name="submit_search" value="SEARCH" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span></button>
+<form method="get" action="<?php echo base_url('user/list') ?>" class="form-inline pull-right">
+	<input type="text" name="keyword" class="form-control" placeholder="keyword">
+	<button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-search"></span></button>
 </form>
 <hr>
 <div class="clearfix"></div>

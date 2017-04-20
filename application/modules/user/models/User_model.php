@@ -21,17 +21,76 @@ class User_model extends CI_Model
 		return $query->row_array();
 	}
 
-	public function get_all_user($page = 0)
+	public function get_all_user($page = 0, $keyword = NULL)
 	{
+		$data = array();
+    $url_get = '';
+    if(!empty($_GET))
+    {
+    	if(!empty($_GET['keyword']))
+    	{
+	      $keyword = @$_GET['keyword'];
+	      $url_get = '?keyword='.$keyword;
+    	}
+      if(!empty($_GET['page']))
+      {
+      	$page = @intval($_GET['page']);
+      }
+    }
+    if($keyword==NULL)
+    {
+      $total_rows = $this->db->count_all('user');
+    }else{
+      $query = $this->db->query('SELECT id FROM user WHERE id = "'.$keyword.'" OR username = "'.$keyword.'" ORDER BY ID DESC');
+      $total_rows = $query->num_rows();
+    }
+
+    $config['base_url']   = base_url('user/list').$url_get;
+    $config['total_rows'] = $total_rows;
+    $config['per_page']   = 3;
+    $config['full_tag_open'] = '<ul class="pagination" style="margin-top: 0;margin-bottom: 0;">';
+    $config['num_tag_open'] = '<li>';
+    $config['num_tag_close'] = '</li>';
+    $config['first_tag_open'] = '<li>';
+    $config['first_tag_close'] = '</li>';
+    $config['last_tag_open'] = '<li>';
+    $config['last_tag_close'] = '</li>';
+    $config['cur_tag_open'] = '<li class="active"><a href="#">';
+    $config['cur_tag_close'] = '</a></li>';
+    $config['next_tag_open'] = '<li>';
+    $config['next_tag_close'] = '</li>';
+    $config['prev_tag_open'] = '<li>';
+    $config['prev_tag_close'] = '</li>';
+    $config['full_tag_close'] = '</ul>';
+    $config['enable_query_strings'] = TRUE;
+    $config['page_query_string'] = TRUE;
+    $config['query_string_segment'] = 'page';
+    $config['use_page_numbers'] = TRUE;
+    $this->pagination->initialize($config);
+
+    $data['pagination'] = $this->pagination->create_links();
+
 		$limit = 3;
+		if($page>0)
+		{
+			$page = $page-1;
+		}
+		$page = @intval($page)*$limit;
 		$this->db->limit($limit,$page);
+		if($keyword != NULL)
+		{
+			$this->db->or_where(array(
+																'id'=>$keyword,
+																'username'=>$keyword
+															));
+		}
 		$query = $this->db->get('user');
+		$data['data_user'] = $query->result_array();
+		return $data;
 
-		return $query->result_array();
+		// untuk menampilkan query terakhir
+		// pr($this->db->last_query());die();
 
-		/*untuk menampilkan query terakhir
-		pr($this->db->last_query());die();
-		*/
 	}
 
 	public function set_user($id = 0)

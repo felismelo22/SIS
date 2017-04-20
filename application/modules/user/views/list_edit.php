@@ -26,12 +26,17 @@ $id = @intval($data_user['id']);
 			<?php
 			echo form_hidden('id',$id);
 			echo form_label('Username', 'username');
-			echo form_input(array(
-				'name'     => 'username',
-				'required' => 'required',
-				'class'    => 'form-control',
-				'value'    => @$user_value));
-			echo '			<div id="user_error"></div>';
+			if($id>0)
+			{
+				echo form_label(@$user_value, @$user_value,array('class'=>'form-control'));
+			}else{
+				echo form_input(array(
+					'name'     => 'username',
+					'required' => 'required',
+					'class'    => 'form-control',
+					'value'    => @$user_value));
+				echo '			<div id="user_error"></div>';
+			}
 			echo form_label('Password', 'password');
 			echo form_password(array(
 				'name'     => 'password',
