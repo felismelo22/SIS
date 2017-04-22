@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$this->session->__set('link_js', base_url().'templates/admin/modules/user/js/script.js');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -22,7 +24,8 @@
 			}
 			?>
 			<div class="img_logo">
-				<img src="<?php echo base_url().'images/logo.png' ?>" style="width: 100%;">
+				<!-- <img src="<?php echo base_url().'images/logo.png' ?>" style="width: 100%;"> -->
+				<img src="<?php echo image_upload('logo.png'); ?>" style="width: 100%;">
 			</div>
 			<form method="post" action="<?php echo base_url('user/login') ?>">
 				<label>username</label>

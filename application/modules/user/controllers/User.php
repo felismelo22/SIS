@@ -18,7 +18,14 @@ class User extends CI_Controller
 	}
 	public function list($page = 0, $keyword = NULL)
 	{
-    $data  = $this->user_model->get_all_user($page, $keyword);
+    if(!empty($_POST['del_user']))
+    {
+      $this->user_model->del_user($_POST['del_user']);
+      $data['msg']   = 'data berhasil dihapus';
+      $data['alert'] = 'success';
+    }
+
+    $data = $this->user_model->get_all_user($page, $keyword);
 		$this->load->view('admin/index',$data);
 	}
 	public function list_edit($id = 0)
@@ -69,6 +76,25 @@ class User extends CI_Controller
     }
 
 	}
+
+  public function action()
+  {
+    $this->load->helper('form');
+    $this->load->library('form_validation');
+
+    $data['msg']   = '';
+    $data['alert'] = '';
+
+    if(!empty($_POST['del_user']))
+    {
+      $this->user_model->del_user($_POST['del_user']);
+      $data['msg']   = 'data berhasil dihapus';
+      $data['alert'] = 'success';
+    }
+    // pr($_POST);
+    $this->load->view('admin/index', $data);
+  }
+
   public function check_exist($username = NULL, $id = 0)
   {
     if($username==NULL)

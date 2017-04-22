@@ -13,4 +13,12 @@
 			</li>
 		</ul>
 	</li>
+	<li>
+		<a href="javascript:;" data-toggle="collapse" data-target="#content"><i class="fa fa-fw fa-user"></i> Content <i class="fa fa-fw fa-caret-down"></i></a>
+		<ul id="content" class="collapse">
+			<li>
+				<a href="<?php echo base_url() ?>content/cat_list">Category</a>
+			</li>
+		</ul>
+	</li>
 </ul>

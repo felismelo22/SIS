@@ -1,27 +1,13 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User_model extends CI_Model
+class Content_model extends CI_Model
 {
 	public function __construct()
 	{
 		$this->load->database();
 	}
 
-	public function get_user($id = 0)
-	{
-		// if ($username === FALSE || $id ===0)
-		// {
-		// 	$query = $this->db->get('user');
-		// 	// $query = $this->db->get_where('user', '1',2,5);
-		// 	return $query->result_array();
-		// }
-
-		$query = $this->db->get_where('user', array('id' => $id));
-
-		return $query->row_array();
-	}
-
-	public function get_all_user($page = 0, $keyword = NULL)
+	public function get_all_category($par_id = 0, $page = 0, $keyword = NULL)
 	{
 		$data = array();
     $url_get = '';
@@ -41,13 +27,13 @@ class User_model extends CI_Model
     }
     if($keyword==NULL)
     {
-      $total_rows = $this->db->count_all('user');
+      $query = $this->db->query('SELECT id FROM content_cat WHERE par_id = '.$par_id.' ORDER BY ID DESC');
     }else{
-      $query = $this->db->query('SELECT id FROM user WHERE id = "'.$keyword.'" OR username = "'.$keyword.'" ORDER BY ID DESC');
-      $total_rows = $query->num_rows();
+      $query = $this->db->query('SELECT id FROM content_cat WHERE id = "'.$keyword.'" OR username = "'.$keyword.'" AND par_id = '.$par_id.' ORDER BY ID DESC');
     }
+      $total_rows = $query->num_rows();
 
-    $config['base_url']   = base_url('user/list').$url_get;
+    $config['base_url']   = base_url('content/cat_list').$url_get;
     $config['total_rows'] = $total_rows;
     $config['per_page']   = $limit;
     $config['full_tag_open'] = '<ul class="pagination" style="margin-top: 0;margin-bottom: 0;">';
@@ -82,58 +68,15 @@ class User_model extends CI_Model
 		{
 			$this->db->or_where(array(
 																'id'=>$keyword,
-																'username'=>$keyword
+																'title'=>$keyword
 															));
 		}
-		$query = $this->db->get('user');
-		$data['data_user'] = $query->result_array();
+		$query = $this->db->get('content_cat');
+		$data['data'] = $query->result_array();
 		return $data;
 
 		// untuk menampilkan query terakhir
 		// pr($this->db->last_query());die();
 
-	}
-
-	public function set_user($id = 0)
-	{
-		$this->load->helper('url');
-
-		$data = array(
-			'username' => $this->input->post('username'),
-			'password' => md5($this->input->post('password'))
-		);
-		if($id > 0)
-		{
-			return $this->db->update('user', $data, 'id = '.$id);
-		}else{
-			return $this->db->insert('user', $data);
-		}
-	}
-
-	public function del_user($ids = array())
-	{
-		if(!empty($ids))
-		{
-			foreach ($ids as $key => $id)
-			{
-				$this->db->delete('user', array('id'=>$id));
-			}
-		}
-	}
-
-	public function login($username = NULL, $password = NULL)
-	{
-		$query = $this->db->get_where('user', array('username' => $username, 'password'=>md5($password)));
-		return $query->row_array();
-	}
-	public function is_exist($username = NULL, $id = 0)
-	{
-		if($id == NULL)
-		{
-			$query = $this->db->get_where('user', array('username' => $username));
-		}else{
-			$query = $this->db->get_where('user', array('username' => $username, 'id'=>$id));
-		}
-		return $query->row_array();
 	}
 }

@@ -22,10 +22,10 @@
 					<?php
 						// $this->session->unset_userdata('link_js');
 						// pr($this->session->user);
-						pr(@($this->session));
 						$data['msg'] = @$msg;
 						$data['alert'] = @$alert;
 						$this->load->view($content, $data);
+						pr(@($this->session));
 					?>
 				</div>
 			</div>
